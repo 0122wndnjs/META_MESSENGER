@@ -1,5 +1,6 @@
 import React from 'react'
 import MessageList from './MessageList'
+import ChatInput from './ChatInput'
 
 function HomePage() {
   return (
@@ -7,6 +8,7 @@ function HomePage() {
       {/* Message */}
       <MessageList />
       {/* ChatInput */}
+      <ChatInput />
     </main>
   )
 }
