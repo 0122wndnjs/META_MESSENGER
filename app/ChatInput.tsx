@@ -1,6 +1,8 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { v4 as uuid } from "uuid";
+import { Message } from "../typings";
 
 function ChatInput() {
   const [input, setInput] = useState("");
@@ -12,11 +14,41 @@ function ChatInput() {
     const messageToSend = input;
 
     setInput("");
+
+    const id = uuid();
+
+    const message: Message = {
+      id,
+      message: messageToSend,
+      created_at: Date.now(),
+      username: "Joowon Kim",
+      // profilePic: 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10165787690655179&height=50&width=50&ext=1670750603&hash=AeQwQHgpc7_UkhQLsdY'
+      profilePic:
+        "https://scontent-ssn1-1.xx.fbcdn.net/v/t1.18169-1/18622551_1313208912128810_5544782204338825168_n.jpg?stp=cp0_dst-jpg_p80x80&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=_fvNfXMcvWwAX9XbTCo&_nc_ht=scontent-ssn1-1.xx&oh=00_AfDFYMyk34sVa_DkrZ02nrrKnzh4SDCKASoDEBFjfDne4Q&oe=63BA0D41",
+      email: "0122wndnjs@gmail.com",
+    };
+
+    const uploadMessageToUpstash = async () => {
+      const res = await fetch("/api/addMessage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message,
+        }),
+      });
+
+      const data = await res.json();
+      console.log("MESSAGE ADDED >>>", data);
+    };
+
+    uploadMessageToUpstash();
   };
 
   return (
     <form
-      onSubmit={(e) => addMessage}
+      onSubmit={addMessage}
       className="fixed bottom-0 z-50 w-full flex px-10 py-5 space-x-2 border-t border-gray-100"
     >
       <input
