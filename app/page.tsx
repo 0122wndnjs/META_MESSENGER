@@ -1,10 +1,13 @@
 import React from 'react'
+import MessageList from './MessageList'
 
 function HomePage() {
   return (
-    <div>
-        <h1>Welcome to the MESSENGER</h1>
-    </div>
+    <main>
+      {/* Message */}
+      <MessageList />
+      {/* ChatInput */}
+    </main>
   )
 }
 
