@@ -35,7 +35,7 @@ function ChatInput() {
     };
 
     const uploadMessageToUpstash = async () => {
-      const res = await fetch("/api/addMessages", {
+      const data = await fetch("/api/addMessages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,11 +45,12 @@ function ChatInput() {
         }),
       });
 
-      const data = await res.json();
-      console.log("MESSAGE ADDED >>>", data);
+      // const data = await res.json();
+      const messages = []
+      // console.log("MESSAGE ADDED >>>", data);
     };
 
-    uploadMessageToUpstash();
+    await mutate(uploadMessageToUpstash)
   };
 
   return (
